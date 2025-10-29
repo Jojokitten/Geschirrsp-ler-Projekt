@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Geschirrspüler-Projekt-Profile</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+<style>
+  #spirit{
+    position:relative; top:40px; left:-10px;}
+  div.profilbild-wrapper{ position:relative; left:120px; }
+option.titelprofile { background-color:pink; font-weight:bold; }
+input.profilename{
+  position:relative; top:60px; left: -120px;}
+.profil-container { text-align:center; color:rgb(137,1,44); font-family:sans-serif; }
+.profilbild-wrapper { position:relative; display:inline-block; margin:20px; }
+#currentProfilePic { width:160px; height:160px; border-radius:50%; border:3px solid rgb(137,1,44); background:white; object-fit:cover; }
+#addProfilePic { display:block; margin:10px auto; background:rgb(137,1,44); color:white; border:none; border-radius:10px; padding:8px 15px; cursor:pointer; }
+.profilbilder { display:none; margin-top:10px; }
+.profilbilder img { width:100px; height:100px; margin:10px; border-radius:20px; cursor:pointer; border:3px solid transparent; object-fit:cover; }
+.profilbilder img:hover { border:3px solid rgb(137,1,44); }
+select, input { margin:10px; padding:8px; font-size:18px; border:2px solid rgb(137,1,44); border-radius:10px; text-align:center; }
+button#saveProfil { position: relative; top: 46px; left: -20px; padding:10px 20px; border:none; border-radius:10px; background:rgb(137,1,44); color:white; cursor:pointer; }
+</style>
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. DOM-Elemente einmalig abrufen
+    const currentPic = document.getElementById("currentProfilePic");
+    const addBtn = document.getElementById("addProfilePic");
+    // Wählt den Container für die Bildauswahl aus
+    const picsContainer = document.querySelector(".profilbild-wrapper .profilbilder"); 
+    const bilder = Array.from(picsContainer.querySelectorAll("img")); // Alle auswählbaren Bilder
+    const nameInput = document.getElementById("profilname");
+    const spiritSelect = document.getElementById("spirit");
+    const saveBtn = document.getElementById("saveProfil");
+
+    // 2. Gespeicherte Daten einmalig aus LocalStorage abrufen
+    const savedPic = localStorage.getItem("profilbild");
+    const savedName = localStorage.getItem("profilname");
+    const savedSpirit = localStorage.getItem("spirit");
+
+    // 3. Initialen Zustand der Seite herstellen (Daten laden)
+    
+    // FIX: Profilbild laden und als "selected" markieren
+    if (savedPic) {
+        currentPic.src = savedPic; // Lade den GESPEICHERTEN Pfad (z.B. "images/furinaProfilepicture.webp")
+        
+        // Finde das gespeicherte Bild in der Auswahl, um es zu markieren
+        bilder.forEach(b => {
+            // Vergleicht den gespeicherten Pfad (savedPic) mit dem src des Auswahlbildes
+            b.classList.toggle("selected", b.src === savedPic);
+        });
+    } else {
+        // Wenn nichts gespeichert ist, stelle sicher, dass das Standardbild geladen wird.
+        currentPic.src = "images/L-Profile.jpg";
+    }
+
+    // Profilname laden
+    if (savedName) {
+        nameInput.value = savedName;
+    }
+
+    // Spirit laden (mit Überprüfung, ob die Option existiert)
+    if (savedSpirit) {
+        const optionExists = Array.from(spiritSelect.options).some(o => o.value === savedSpirit);
+        if (optionExists) {
+            spiritSelect.value = savedSpirit;
+        }
+    }
+
+    // 4. Event-Listener hinzufügen (Interaktionen)
+
+    // FIX: Öffnen des Bildauswahl-Containers
+    addBtn.addEventListener("click", () => {
+        if (picsContainer) {
+            picsContainer.style.display = "block";
+        }
+    });
+
+    // FIX: Klick-Handler für jedes auswählbare Profilbild
+    bilder.forEach(bild => {
+        bild.addEventListener("click", () => {
+            // 1. Markierung setzen
+            bilder.forEach(b => b.classList.remove("selected"));
+            bild.classList.add("selected");
+            
+            // 2. Speichern und Anzeigen des ausgewählten Bildes
+            const selectedSrc = bild.src; // Holt den vollen Pfad
+            localStorage.setItem("profilbild", selectedSrc); // Speichert den vollen Pfad
+            currentPic.src = selectedSrc;
+            
+            // 3. Container schließen
+            if (picsContainer) {
+                 picsContainer.style.display = "none";
+            }
+        });
+    });
+
+    // Klick-Handler für den Speichern-Button
+    saveBtn.addEventListener("click", () => {
+        // Speichert Name und Spirit
+        localStorage.setItem("profilname", nameInput.value.trim() || "");
+        localStorage.setItem("spirit", spiritSelect.value || "");
+        
+        alert("Profil gespeichert!");
+    });
+});
+</script>
+<body>
+    <h1>My Profile</h1>
+  <ul>
+    <li><a href="Geschirrspüler-Projekt.html">Geschirspüler-Liste</a></li>
+    <li><a href="statistic.html">Statistik</a></li>
+    <li><a href="motivation.html">Motivation</a></li>
+    <li><a href="geschirrspühl-tagebuch.html">Geschirrspühl-Tagebuch</a></li>
+    <li><a href="profile.html">Profile</a></li>
+  </ul>
+<img class="nyancatProfile" src="images/nyancat.png" alt="LA" style="width:40%">
+  
+<div class="profil-container">
+    <div class="profilbild-wrapper">
+        <img id="currentProfilePic" src="images/L-Profile.jpg" alt="Profilbild">
+        <button id="addProfilePic">Add Profile Picture</button>
+        
+        <div class="profilbilder">
+            <img src="images/furinaProfilepicture.webp" data-pic-src="images/furinaProfilepicture.webp">
+            <img src="images/miniProfilepicture.jpg" data-pic-src="images/miniProfilepicture.jpg">
+            <img src="images/tartagliaProfilepicture.webp" data-pic-src="images/tartagliaProfilepicture.webp">
+        </div>
+    </div>
+    
+    <input class="profilename" type="text" id="profilname" placeholder="Profilname eingeben" autocomplete="off">
+    <br>
+    <select id="spirit">
+        <option class="titelprofile" value="">Titel</option>
+        <option value="Fuchs">Furinas Tea-party-Gast</option>
+        <option value="Rabe">beste Geschirrspühlgehilfin</option>
+        <option value="Wolf">kleine Schwester</option>
+    </select>
+    <br>
+    <button id="saveProfil" type="button">Speichern</button></div>
+<img id="barbara" src="images/profileBarbara.png" alt="barbara">
+<img class="ProfilePaimon" src="images/profilePaimon.png" alt="paimon">
+<button class="delete" onclick="window.location.href='whyDidUDelete.html'">
+  <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+</button>
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Geschirrspüler-Projekt</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+<style>
+  h2{
+    color: rgb(19, 1, 9);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 30px;
+    top: 400px;
+    position: absolute;
+    left: 340px;
+    background-color: rgb(249, 188, 89, 0.5);
+    border-radius: 15px;
+  }
+  body {
+    background-image: url('images/statisticBackgroundImg.jpg'); 
+   background-size: cover; 
+   background-attachment: fixed; 
+   background-repeat: no-repeat;
+    background-position: center center;
+   min-height: 100vh;}
+button.statisticLena{
+  position: absolute;
+  top: 300px;
+  left: 300px;
+  display: block;
+  margin: 20px auto;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  background: rgb(137, 1, 44);
+  color: rgb(247, 208, 208);
+  cursor: pointer;
+  z-index: 10;
+  height: 50px;
+ width: 260px;
+  padding: 6px 10px;}
+button.statisticJohanna{  position: absolute;
+  height: 50px;
+  top: 300px;
+  left: 680px;
+  display: block;
+  margin: 20px auto;
+  padding: 6px 10px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  background: rgb(137, 1, 44);
+  color: rgb(247, 208, 208);
+  cursor: pointer;
+width: 260px;}
+  button.statisticLena:hover, button.statisticJohanna:hover {
+  background-color: rgb(189, 6, 110);
+  color: white;
+}
+</style>
+<script>
+ const statisticJohannaButton = document.querySelector('.statisticJohanna');
+ const statisticLenaButton = document.querySelector('.statisticLena');
+ const statisticJohannaChart = document.querySelector('.statisticChartJohanna');
+ const statisticLenaChart = document.querySelector('.statisticChartLena'); 
+
+document.addEventListener('DOMContentLoaded', () => {
+        statisticLenaChart.style.visibility = 'hidden';
+        statisticJohannaChart.style.display = 'hidden';
+    });
+
+   statisticJohannaButton.addEventListener('click', () => {
+    statisticLenaChart.style.visibility = 'hidden';
+    statisticJohannaChart.style.visibility = 'visible';});
+ statisticLenaButton.addEventListener('click', () => {
+    statisticJohannaChart.style.visibility = 'hidden';
+    statisticLenaChart.style.visibility = 'visible';});
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const stickerCountsKey = 'stickerCounts';
+        const displayElement = document.getElementById('mostUsedStickerDisplay');
+        
+        if (!displayElement) {
+            console.error("Platzhalter-Element 'mostUsedStickerDisplay' nicht gefunden.");
+            return;
+        }
+
+        // 1. Gespeicherte Zähler laden
+        const stickerCounts = JSON.parse(localStorage.getItem(stickerCountsKey) || "{}");
+
+        // 2. Am häufigsten ausgewählten Sticker ermitteln
+        let mostSelectedMood = 'Kein Sticker ausgewählt';
+        let maxCount = 0;
+
+        // Finde den Eintrag mit der höchsten Zählung
+        for (const mood in stickerCounts) {
+            if (stickerCounts[mood] > maxCount) {
+                maxCount = stickerCounts[mood];
+                mostSelectedMood = mood;
+            }
+        }
+
+        // 3. Ergebnis im HTML anzeigen
+        if (maxCount > 0) {
+            // Beispiel: Zeige den Namen des Stickers und die Anzahl
+            displayElement.innerHTML = `
+                <p style="font-size: 24px; font-weight: bold; color: #960a60;">
+                    ${mostSelectedMood} (${maxCount}x)
+                </p>
+                `;
+        } else {
+            displayElement.innerHTML = `<p>Noch keine Sticker-Daten vorhanden.</p>`;
+        }
+    });
+</script>
+
+<body>
+  <img src="img_la.jpg" alt="LA" style="width:100%">
+  <div class="headings">
+    <h1>Statistik</h1>
+  </div>
+  <ul>
+    <li><a href="Geschirrspüler-Projekt.html">Geschirspüler-Liste</a></li>
+    <li><a href="statistic.html">Statistik</a></li>
+    <li><a href="motivation.html">Motivation</a></li>
+        <li><a href="geschirrspühl-tagebuch.html">Geschirrspühl-Tagebuch</a></li>
+    <li><a href="profile.html">Profile</a></li>
+  </ul>
+<button class="delete" onclick="window.location.href='whyDidUDelete.html'">
+  <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+</button>
+
+<button class="statisticLena">Statistik Lena</button>
+<div class="statisticChartLena">
+    <h2>Von Lena am häufigsten genutzer Sticker:</h2>
+    <div id="mostUsedStickerDisplay">
+        <p>Lade Sticker...</p>
+    </div>
+</div>
+
+<button class="statisticJohanna">Statistik Johanna</button>
+<div class="statisticChartJohanna">
+    <h2>Von Johanna am häufigsten genutzer Sticker:</h2>
+    
+</div>
+</body>
+
+</html>

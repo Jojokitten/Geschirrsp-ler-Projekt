@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Geschirrspüler-Projekt</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+<style>
+button.tagebuch-sticker.clicked {
+  border: 5px solid rgb(137, 1, 44);}
+  input#uhrzeit {
+  display: block;
+  margin: 150px auto;
+  padding: 10px;
+  font-size: 50px;
+  border: 2px solid rgb(137, 1, 44);
+  border-radius: 10px;
+  text-align: center;}
+button.TagebuchEintragSave{
+  position: absolute;
+  top: 1500px;
+  left: 40%;
+  margin: 20px auto;
+  padding: 15px 30px;
+  font-size: 24px;
+  border: none;
+  border-radius: 10px;
+  background: rgb(137, 1, 44);
+  color: white;
+  cursor: pointer;}
+</style>
+<style id="UploadeImageOfFinishedKitchen"> 
+.custum-file-upload {
+  position:absolute;
+  top:1100px;
+  left:36%;
+  height: 200px;
+  width: 300px;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #960a60;
+  background-color: rgb(248, 170, 225);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px rgba(0,0,0,0.1);
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: #960a60;
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 1000;
+  color: #960a60;
+  font-size: 20px;
+}
+
+.custum-file-upload input {
+  display: none;}
+</style>
+<body>
+<div id="schichtZuEndeneinMessage">
+
+  <div class="headings"> <h1>Geschirspül-Schicht zu ende?</h1> </div>
+
+  <p></p>
+
+<button id="schichtZuEndeja" class="schichtZuEndeja" onclick="schichtZuEndeja()">
+ Ja
+</button>
+<button id="schichtZuEndenein" class="schichtZuEndenein" onclick="schichtZuEndenein()">
+ Nein
+</button>
+<div id="schichtZuEndeneinMessage"></div>
+<button class="delete" onclick="window.location.href='whyDidUDelete.html'">
+  <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+</button>
+</div>
+  <ul>
+    <li><a href="Geschirrspüler-Projekt.html">Geschirspüler-Liste</a></li>
+    <li><a href="statistic.html">Statistik</a></li>
+    <li><a href="motivation.html">Motivation</a></li>
+        <li><a href="geschirrspühl-tagebuch.html">Geschirrspühl-Tagebuch</a></li>
+    <li><a href="profile.html">Profile</a></li>
+  </ul>
+  </body>
+<script src="script.js"></script>
+</html>
