@@ -1,0 +1,256 @@
+body {
+    background-color: rgb(230, 173, 204);
+}
+
+h1 {
+    color: rgb(137, 1, 44);
+    text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(208, 136, 159);;
+  display: flex;
+    border: 1px solid rgb(137, 1, 44);
+      position: fixed;
+  top: 0;
+  width: 100%;
+background: linear-gradient(rgb(255, 182, 193), rgb(255, 105, 180));
+}
+
+ul li a {
+  display: block;
+  color: rgb(137, 1, 44);;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  background-color: hsl(342, 81%, 79%);
+}
+
+
+
+
+
+
+
+button {
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
+  color: rgb(108, 85, 5);
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  background: linear-gradient(
+    0deg,
+    rgb(189, 6, 110) 0%,
+    rgb(248, 112, 196) 47%,
+
+    rgb(197, 120, 146) 100%
+  );
+  transition: all 0.1s ease-in-out;
+
+}
+
+button.lena {
+  margin-left: 30%;
+}
+button.jojo {
+  margin-left: 20%;
+}
+
+button:active {
+  transform: translateY(3px);
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 14px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+button .button-content {
+  display: flex;
+  align-items: center;
+  background: rgb(253, 195, 214);
+  padding: 0.4em 1.5em;
+  padding-left: 1.2em;
+  border-radius: 14px;
+}
+
+button svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  color: #ff0000;
+  transition: transform 1.6s;
+}
+
+button:hover svg {
+  transform: scale(1.5);
+color: #e62689;
+}
+.button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: .3s;
+  overflow: hidden;
+  position: relative;
+  margin: -20% 0 0 84%;
+}
+
+.svgIcon {
+  width: 12px;
+  transition-duration: .3s;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.button:hover {
+  width: 140px;
+  border-radius: 50px;
+  transition-duration: .3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.button:hover .svgIcon {
+  width: 50px;
+  transition-duration: .3s;
+  transform: translateY(60%);
+}
+
+.button::before {
+  position: absolute;
+  top: -20px;
+  content: "Delete";
+  color: white;
+  transition-duration: .3s;
+  font-size: 2px;
+}
+
+.button:hover::before {
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(30px);
+  transition-duration: 3s;}
+.paimon {
+    margin-left: 100px; /* 200px nach rechts */ }
+button.schichtZuEndeja, button.schichtZuEndenein {
+  height: 40px;
+  width: 200px;
+  font-size: 25px;
+  color: rgb(108, 5, 38);
+  margin-left: 25%;
+  margin-top:10%;}
+button.backToWork{height: 150px;
+  width: 350px;
+  font-size: 50px;
+  color: rgb(108, 5, 38);
+  left:  -150px;
+  top:-300px;
+ position: relative;}
+button.tagebuch-sticker{
+height: 100px;
+  width: 100px;
+  margin-left: 250px;
+    position: relative;
+  top: -140px;
+;}
+img.paimon{
+  height: 100px;
+  width: 100px;
+      position: relative;
+  left: -100px;}
+img.kleedance{
+  height: 180px;
+position: relative;
+top: -70px;}
+p.wähle{color: rgb(137, 1, 44);
+    text-align: center;
+    font-size: 30px;
+  top: -190px;
+position: relative;}
+img.furinaBackToWork{
+  position: relative;
+  top: -200px;
+  left: 340px;
+  z-index: -1;
+  height: 600px;
+  width: 600px;}
+img.catTimeGif{
+  position: relative;
+  top: -370px;
+  left: 0px;
+    height: 300px;
+  width: 300px;
+    z-index: -1;
+  border:#d71c79 5px solid;
+  border-radius: 20px;}
+button.delete {
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  color: rgb(108, 85, 5);
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  background: linear-gradient(
+    0deg,
+    rgb(189, 6, 110) 0%,
+    rgb(248, 112, 196) 47%,
+
+    rgb(197, 120, 146) 100%
+  );
+  transition: all 0.1s ease-in-out;
+height: 50px;
+width: 50px;
+position: relative;
+top: -410px;
+left: 50%;
+}
+img.nyancatProfile{
+  position: relative;
+  top: -150px;
+  left: -20px;
+    height: 300px;
+  width: 300px;
+    z-index: -1;
+  animation: moveAcrossScreen 2s linear forwards;}
+
+  @keyframes moveAcrossScreen {
+  0% {
+    left: -20px; 
+    transform: translateX(0);
+  }
+  100% {
+    left: -20px; 
+    transform: translateX(calc(100vw - 0px + 20px)); 
+    opacity: 0;  
+   display: none;}}
+
+
+
+
+
+
+
+
