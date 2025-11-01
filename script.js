@@ -61,8 +61,6 @@
 
 //2. TEIL
 
-// Use event delegation so handlers work even when elements are injected dynamically.
-// Maintain a single clicks object loaded from localStorage.
 const clicks = JSON.parse(localStorage.getItem("clicks") || "{}");
 const stickerCounts = JSON.parse(localStorage.getItem("stickerCounts") || "{}");
 
@@ -134,26 +132,109 @@ document.addEventListener('change', function(event) {
 
 
 //Playlist
-
-document.addEventListener('DOMContentLoaded'), ()  => { 
+document.addEventListener('DOMContentLoaded'), () => {
     const playlist = [
         { title: "Tolles Lied 1", src: "playlist/kafka.mp3" },
         { title: "Ganz Tolles Billie Eilish Lied", src: "playlist/ilomio.mp3" },
-        { title: "Kaffee", src: "playlist/Sabrina Carpenter - Espresso.mp3" }];
-    const audioPlayer = document.getElementById('autioPlayer');
+        { title: "Kaffee", src: "playlist/Sabrina Carpenter - Espresso.mp3" } // Index 2
+    ];
+    
+    // --- 1. DOM Elemente abrufen ---
+    const audioPlayer = document.getElementById('audioPlayer');
     const songTitleDisplay = document.getElementById('songTitle');
     const playPauseBtn = document.getElementById('playPauseBtn');
     const nextBtn = document.getElementById('nextBtn');
     const prevBtn = document.getElementById('prevBtn');
+
+    const furinaPlaylistGif = document.querySelector('.tenor-gif-embed');
     
     let currentSongIndex = 0;
+    let isPlaying = false; // Startzustand: Pausiert
 
+    // --- FUNKTION: Zentralisiert die GIF-Logik ---
+    const updateGifVisibility = (isCurrentlyPlaying) => {
+        if (!furinaPlaylistGif) return;
 
+        const isEspresso = currentSongIndex === 2; // Index 2 ist "Kaffee"
 
+        if (isEspresso && isCurrentlyPlaying) {
+            furinaPlaylistGif.style.visibility = 'visible';
+        } else {
+            furinaPlaylistGif.style.visibility = 'hidden'; 
+        }
+    };
 
+    const loadSong = (index) => {
+        const song = playlist[index];
+        audioPlayer.src = song.src;
+        if (songTitleDisplay) {
+            songTitleDisplay.textContent = song.title;
+        }
+        audioPlayer.load();
+        
+        // GIF-Status nach dem Laden aktualisieren (mit altem isPlaying-Status)
+        updateGifVisibility(isPlaying);
+    };
 
+    const togglePlayPause = () => {
+        if (isPlaying) {
+            audioPlayer.pause();
+            playPauseBtn.textContent = '▶';
+            isPlaying = false; // 1. Zustand ändern
+            updateGifVisibility(isPlaying); // 2. GIF aktualisieren
+        } else {
+            // FIX: Verwende promise, um Playback-Fehler zu vermeiden
+            const playPromise = audioPlayer.play();
 
-}
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Wiedergabe erfolgreich
+                    playPauseBtn.textContent = '⏸';
+                    isPlaying = true; // 1. Zustand ändern
+                    updateGifVisibility(isPlaying); // 2. GIF aktualisieren
+                }).catch(error => {
+                    // Autoplay blockiert oder anderer Fehler
+                    console.error("Autoplay wurde blockiert oder die Wiedergabe ist fehlgeschlagen:", error);
+                    playPauseBtn.textContent = '▶';
+                    isPlaying = false;
+                    updateGifVisibility(isPlaying);
+                });
+            }
+        }
+    };
 
+    const playNextSong = () => {
+        currentSongIndex = (currentSongIndex + 1) % playlist.length;
+        loadSong(currentSongIndex);
+        
+        if (isPlaying) {
+            audioPlayer.play();
+        } 
+        // updateGifVisibility wird bereits in loadSong aufgerufen, aber wir rufen es hier noch einmal auf,
+        // falls playNextSong nicht durch 'ended', sondern manuell ausgelöst wurde, um den GIF-Status zu gewährleisten.
+        updateGifVisibility(isPlaying);
+    };
+    
+    const playPreviousSong = () => {
+        currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+        loadSong(currentSongIndex);
+        
+        if (isPlaying) {
+            audioPlayer.play();
+        } 
+        updateGifVisibility(isPlaying);
+    };
+
+    // --- Event Listener ---
+    
+    if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
+    if (nextBtn) nextBtn.addEventListener('click', playNextSong);
+    if (prevBtn) prevBtn.addEventListener('click', playPreviousSong);
+    audioPlayer.addEventListener('ended', playNextSong);
+
+    // Initialen Song laden und GIF verstecken
+    loadSong(currentSongIndex);
+    updateGifVisibility(false);
+};
 
 

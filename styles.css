@@ -416,18 +416,21 @@ button.startGeschirrspühlsession:hover {
   background-size: 320%;
   background-position: right center;}
 .playlist-container {
+  margin: -250px 0 0 250px;
     background-color: #ffffff;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 8px 16px rgba(150, 50, 100, 0.2);
     text-align: center;
-    width: 300px;}
+    width: 700px;}
 .song-title {
+  position: relative;
     margin: 15px 0;
     font-size: 18px;
     font-weight: bold;
-    color: #6a1a4f;
-    min-height: 25px; /* Verhindert Verschiebung beim Laden */}
+    color: #e8b7d8;
+    min-height: 25px;
+     z-index: 200;}
 .controls {
     display: flex;
     justify-content: space-around;
@@ -445,9 +448,11 @@ button.startGeschirrspühlsession:hover {
 .control-btn:hover {
     background-color: #a3357e; /* Dunkleres Rosa beim Hover */}
 .control-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.95);}
+div.tenor-gif-embed {
+height: 200px;
+margin-top: 20px;
 }
-
 
 
 
