@@ -59,10 +59,6 @@
 
 
 
-
-
-
-
 //2. TEIL
 
 // Use event delegation so handlers work even when elements are injected dynamically.
