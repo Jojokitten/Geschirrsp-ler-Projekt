@@ -131,25 +131,32 @@ document.addEventListener('change', function(event) {
 
 
 
-//Playlist
-document.addEventListener('DOMContentLoaded'), () => {
-    const playlist = [
-        { title: "Tolles Lied 1", src: "playlist/kafka.mp3" },
+//PLAYLIST
+document.addEventListener('DOMContentLoaded', () => {
+     const playlist = [
+         { index: 0, title: "Tolles Lied 1", src: "playlist/kafka.mp4" },
         { title: "Ganz Tolles Billie Eilish Lied", src: "playlist/ilomio.mp3" },
-        { title: "Kaffee", src: "playlist/Sabrina Carpenter - Espresso.mp3" } // Index 2
+        { title: "Kaffee", src: "playlist/Sabrina Carpenter - Espresso.mp3" } 
     ];
-    
+   
     // --- 1. DOM Elemente abrufen ---
     const audioPlayer = document.getElementById('audioPlayer');
+    const videoPlayer = document.getElementById('videoPlayer');
     const songTitleDisplay = document.getElementById('songTitle');
     const playPauseBtn = document.getElementById('playPauseBtn');
     const nextBtn = document.getElementById('nextBtn');
     const prevBtn = document.getElementById('prevBtn');
 
+
+
+
     const furinaPlaylistGif = document.querySelector('.tenor-gif-embed');
-    
+   
     let currentSongIndex = 0;
     let isPlaying = false; // Startzustand: Pausiert
+    let currentMediaElement = null;
+
+
 
     // --- FUNKTION: Zentralisiert die GIF-Logik ---
     const updateGifVisibility = (isCurrentlyPlaying) => {
@@ -160,21 +167,34 @@ document.addEventListener('DOMContentLoaded'), () => {
         if (isEspresso && isCurrentlyPlaying) {
             furinaPlaylistGif.style.visibility = 'visible';
         } else {
-            furinaPlaylistGif.style.visibility = 'hidden'; 
+            furinaPlaylistGif.style.visibility = 'hidden';
         }
     };
 
+
+
+
     const loadSong = (index) => {
         const song = playlist[index];
-        audioPlayer.src = song.src;
-        if (songTitleDisplay) {
-            songTitleDisplay.textContent = song.title;
+        songTitleDisplay.textContent = song.title;
+
+        if (song.type === 'video') {
+            videoPlayer.src = song.src;
+            // hier vill display von video ändern!!!
+            currentMediaElement = videoPlayer;
         }
-        audioPlayer.load();
-        
-        // GIF-Status nach dem Laden aktualisieren (mit altem isPlaying-Status)
+        else {
+            audioPlayer.src = song.src;
+            currentMediaElement = audioPlayer;
+        }
+        currentMediaElement = load;
         updateGifVisibility(isPlaying);
     };
+
+
+ 
+
+
 
     const togglePlayPause = () => {
         if (isPlaying) {
@@ -185,6 +205,9 @@ document.addEventListener('DOMContentLoaded'), () => {
         } else {
             // FIX: Verwende promise, um Playback-Fehler zu vermeiden
             const playPromise = audioPlayer.play();
+
+
+
 
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
@@ -203,38 +226,52 @@ document.addEventListener('DOMContentLoaded'), () => {
         }
     };
 
+
+
+
     const playNextSong = () => {
         currentSongIndex = (currentSongIndex + 1) % playlist.length;
         loadSong(currentSongIndex);
-        
+       
         if (isPlaying) {
             audioPlayer.play();
-        } 
+        }
         // updateGifVisibility wird bereits in loadSong aufgerufen, aber wir rufen es hier noch einmal auf,
         // falls playNextSong nicht durch 'ended', sondern manuell ausgelöst wurde, um den GIF-Status zu gewährleisten.
         updateGifVisibility(isPlaying);
     };
-    
+   
     const playPreviousSong = () => {
         currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
         loadSong(currentSongIndex);
-        
+       
         if (isPlaying) {
             audioPlayer.play();
-        } 
+        }
         updateGifVisibility(isPlaying);
     };
 
+
+
+
     // --- Event Listener ---
-    
+   
     if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
     if (nextBtn) nextBtn.addEventListener('click', playNextSong);
     if (prevBtn) prevBtn.addEventListener('click', playPreviousSong);
     audioPlayer.addEventListener('ended', playNextSong);
 
+
+
+
     // Initialen Song laden und GIF verstecken
     loadSong(currentSongIndex);
     updateGifVisibility(false);
-};
+
+
+});
+
+
+
 
 

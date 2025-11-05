@@ -452,6 +452,7 @@ button.startGeschirrspühlsession:hover {
 div.tenor-gif-embed {
 height: 200px;
 margin-top: 20px;
+visibility: hidden;
 }
 
 
