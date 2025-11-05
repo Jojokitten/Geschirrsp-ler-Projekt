@@ -157,8 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMediaElement = null;
 
 
-
-    // --- FUNKTION: Zentralisiert die GIF-Logik ---
     const updateGifVisibility = (isCurrentlyPlaying) => {
         if (!furinaPlaylistGif) return;
 
@@ -170,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
             furinaPlaylistGif.style.visibility = 'hidden';
         }
     };
-
 
 
 
@@ -195,10 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
  
 
 
-
     const togglePlayPause = () => {
         if (isPlaying) {
-            audioPlayer.pause();
+            currentMediaElement.pause();
             playPauseBtn.textContent = '▶';
             isPlaying = false; // 1. Zustand ändern
             updateGifVisibility(isPlaying); // 2. GIF aktualisieren
@@ -234,10 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSong(currentSongIndex);
        
         if (isPlaying) {
-            audioPlayer.play();
+            currentMediaElement.play();
         }
-        // updateGifVisibility wird bereits in loadSong aufgerufen, aber wir rufen es hier noch einmal auf,
-        // falls playNextSong nicht durch 'ended', sondern manuell ausgelöst wurde, um den GIF-Status zu gewährleisten.
         updateGifVisibility(isPlaying);
     };
    
@@ -246,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSong(currentSongIndex);
        
         if (isPlaying) {
-            audioPlayer.play();
+            currentMediaElement.play();
         }
         updateGifVisibility(isPlaying);
     };
@@ -259,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
     if (nextBtn) nextBtn.addEventListener('click', playNextSong);
     if (prevBtn) prevBtn.addEventListener('click', playPreviousSong);
-    audioPlayer.addEventListener('ended', playNextSong);
+    currentMediaElement.addEventListener('ended', playNextSong);
 
 
 

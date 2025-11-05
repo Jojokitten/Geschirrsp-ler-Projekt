@@ -292,8 +292,7 @@ background: linear-gradient(to bottom,
       -webkit-background-clip: text; 
     background-clip: text;     
     -webkit-text-fill-color: transparent; 
-    color: transparent; 
-  }
+    color: transparent; }
 p.stricherlCountJohanna{
     position: relative;
   top: 90px;
@@ -311,17 +310,14 @@ p.stricherlCountJohanna{
   border-radius: 20px;
   border-style: double;
   display: inline-block;}
-  
 button.lena {
   margin-left: 30%;
   position: relative;
-  top: -120px;
-}
+  top: -120px;}
 button.jojo {
   margin-left: 20%;
   position: relative;
-    top: -120px;
-}
+    top: -120px;}
 p.stricherlTextLena{
   position: static;
   font-size: 30px;
@@ -332,8 +328,7 @@ p.stricherlTextLena{
     top: 300px; /* Position von oben */
     left: 35%; /* Position von links (z.B. 50% der Seite) */
     transform: translateX(-50%); /* Zum Zentrieren, falls nötig */
-    z-index: 10;
-}
+    z-index: 10;}
 div.stricherlTextJohanna{
   font-size: 30px;
   font-weight: bold;
@@ -343,12 +338,10 @@ div.stricherlTextJohanna{
     top: 300px; /* Position von oben */
     left: 63%; /* Position von links (z.B. 50% der Seite) */
     transform: translateX(-50%); /* Zum Zentrieren, falls nötig */
-    z-index: 10;
-}
+    z-index: 10;}
 button.addStricherlLena:hover, button.addStricherlJohanna:hover {
   background-color: rgb(189, 6, 110);
-  color: white;
-}
+  color: white;}
 button.minusStricherlLena{
   position: absolute;
   top: 600px;
@@ -416,7 +409,7 @@ button.startGeschirrspühlsession:hover {
   background-size: 320%;
   background-position: right center;}
 .playlist-container {
-  margin: -250px 0 0 250px;
+   margin: 10px 0 0 250px;
     background-color: #ffffff;
     padding: 30px;
     border-radius: 20px;
@@ -426,9 +419,9 @@ button.startGeschirrspühlsession:hover {
 .song-title {
   position: relative;
     margin: 15px 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-    color: #e8b7d8;
+    color: #ecabd7;
     min-height: 25px;
      z-index: 200;}
 .controls {
@@ -452,7 +445,9 @@ button.startGeschirrspühlsession:hover {
 div.tenor-gif-embed {
 height: 200px;
 margin-top: 20px;
-visibility: hidden;
+visibility: hidden;}
+#videoPlayer {
+height: 20px;
 }
 
 
