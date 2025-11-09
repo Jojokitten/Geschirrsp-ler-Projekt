@@ -278,12 +278,190 @@ document.addEventListener('DOMContentLoaded', () => {
 //PrimoCount
 const primoText = document.querySelector('.totalPrimos');
 const getMoreButton = document.querySelector('.getMore');
+const firstFreePullButton = document.querySelector('.firstFreePulls');
+const tenPull = document.querySelector('.tenPulls');
 
-primoText.innerHTML += "<br>0";
+let primoCount = 0;
+let pity = 0;
 
+// Anfangs Primogems anzeigen
+if (primoText) primoText.innerHTML = `insgesamt:<br>${primoCount}`;
+
+// Button zum Weiterleiten
 if (getMoreButton) {
   getMoreButton.addEventListener('click', () => {
     window.location.href = "statistic.html";
   });
+}
+
+// Free Pull Button
+if (firstFreePullButton) {
+  firstFreePullButton.addEventListener('click', () => {
+    firstFreePullButton.style.animation = 'none';
+    // Reflow erzwingen, damit Animation neu startet
+    void firstFreePullButton.offsetWidth;
+    firstFreePullButton.style.animation = 'freePullDrop 2s forwards';
+    primoCount += 10;
+    primoText.innerHTML = `insgesamt:<br>${primoCount}`;
+  });
+}
+
+// Genshin Simulation
+const BANNER_CHARACTER = 'character';
+const BANNER_WEAPON = 'weapon';
+const BANNER_STANDARD = 'standard';
+
+function createState(bannerType) {
+  return {
+    bannerType,
+    wishes: 0,
+    pity4: 0,
+    pity5: 0,
+    guaranteedFeatured5: false,
+    epitomizedFailCount: 0,
+    resultHistory: []
+  };
+}
+
+function wishOnce(state) {
+  const type = state.bannerType;
+  state.wishes++;
+  state.pity4++;
+  state.pity5++;
+
+  const baseRate4 = 0.051;
+  let baseRate5;
+  let hardPity5;
+
+  if (type === BANNER_CHARACTER || type === BANNER_STANDARD) {
+    baseRate5 = 0.006;
+    hardPity5 = 90;
+  } else {
+    baseRate5 = 0.0075;
+    hardPity5 = 80;
+  }
+
+  if (state.pity4 >= 10) {
+    state.pity4 = 0;
+    state.resultHistory.push({ rarity: 4 });
+    return 4;
+  }
+
+  if (state.pity5 >= hardPity5) {
+    state.pity5 = 0;
+    state.pity4 = 0;
+    if (type === BANNER_CHARACTER) {
+      if (state.guaranteedFeatured5) {
+        state.resultHistory.push({ rarity: 5, featured5: true });
+        state.guaranteedFeatured5 = false;
+      } else if (Math.random() < 0.5) {
+        state.resultHistory.push({ rarity: 5, featured5: true });
+      } else {
+        state.resultHistory.push({ rarity: 5, featured5: false });
+        state.guaranteedFeatured5 = true;
+      }
+    } else if (type === BANNER_WEAPON) {
+      const upRate = state.epitomizedFailCount >= 1 ? 1.0 : 0.75;
+      if (Math.random() < upRate) {
+        state.resultHistory.push({ rarity: 5, featured5: true });
+        state.epitomizedFailCount = 0;
+      } else {
+        state.resultHistory.push({ rarity: 5, featured5: false });
+        state.epitomizedFailCount++;
+      }
+    } else {
+      state.resultHistory.push({ rarity: 5 });
+    }
+    return 5;
+  }
+
+  let currentRate5 = baseRate5;
+  if (type === BANNER_CHARACTER && state.pity5 >= 75) {
+    const extra = (state.pity5 - 75) / (hardPity5 - 75);
+    currentRate5 = baseRate5 + (1 - baseRate5) * extra;
+    if (currentRate5 > 1) currentRate5 = 1;
+  }
+
+  if (Math.random() < currentRate5) {
+    state.pity5 = 0;
+    state.pity4 = 0;
+    if (type === BANNER_CHARACTER) {
+      if (state.guaranteedFeatured5) {
+        state.resultHistory.push({ rarity: 5, featured5: true });
+        state.guaranteedFeatured5 = false;
+      } else if (Math.random() < 0.5) {
+        state.resultHistory.push({ rarity: 5, featured5: true });
+      } else {
+        state.resultHistory.push({ rarity: 5, featured5: false });
+        state.guaranteedFeatured5 = true;
+      }
+    } else if (type === BANNER_WEAPON) {
+      const upRate = state.epitomizedFailCount >= 1 ? 1.0 : 0.75;
+      if (Math.random() < upRate) {
+        state.resultHistory.push({ rarity: 5, featured5: true });
+        state.epitomizedFailCount = 0;
+      } else {
+        state.resultHistory.push({ rarity: 5, featured5: false });
+        state.epitomizedFailCount++;
+      }
+    } else {
+      state.resultHistory.push({ rarity: 5 });
+    }
+    return 5;
+  }
+
+  if (Math.random() < baseRate4) {
+    state.pity4 = 0;
+    state.resultHistory.push({ rarity: 4 });
+    return 4;
+  }
+
+  state.resultHistory.push({ rarity: 3 });
+  return 3;
+}
+
+function simulateBanner(bannerType, wishes) {
+  const state = createState(bannerType);
+  for (let i = 0; i < wishes; i++) {
+    wishOnce(state);
+  }
+  return state;
+}
+
+// Ten Pull Button
+if (tenPull) {
+  tenPull.addEventListener('click', () => {
+    if (primoCount >= 10) {
+      pity += 10;
+      primoCount -= 10;
+      primoText.innerHTML = `insgesamt:<br>${primoCount}`;
+
+      const result = simulateBanner(BANNER_CHARACTER, 10);
+      console.log('10-Pull Ergebnis:', result.resultHistory);
+    } else {
+      primoText.style.color = "red";
+      setTimeout(() => primoText.style.color = "", 1000);
+    }
+  });
+}
+
+
+// LOCAL STORAGE!!!! :)
+
+
+let pulls = parseInt(localStorage.getItem('pullCount')) || 0;
+let freePullUsed = localStorage.getItem('freePullUsed') === 'true';
+
+// Animation nur, wenn Free Pull noch nicht genutzt wurde
+if (firstFreePullButton && !freePullUsed) {
+  firstFreePullButton.addEventListener('click', () => {
+    firstFreePullButton.style.animation = 'freePullDrop 2s forwards';
+    primoCount += 10;
+    pulls += 1;
+    localStorage.setItem('pullCount', pulls);
+    localStorage.setItem('freePullUsed', 'true');
+  });
+} else if (firstFreePullButton && freePullUsed) {
+  firstFreePullButton.style.display = 'none';
 }
 

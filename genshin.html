@@ -130,16 +130,20 @@ position: absolute;
     left:820px;  
 }
 button.firstFreePulls {
-position: absolute;
+position: absolute; 
     top:900px; 
-    left: 600px; 
-    height: 50px;
-    width: 50px; 
+    left: 550px; 
+    height: 60px;
+    width: 60px;     
     background-image: url('images/interwined.webp');
     background-size: cover;
 }
+@keyframes freePullDrop{
+    from{top: 900px; left: 550px; width: 60px; height: 60px; display: block;}
+    to{top: 1140px; left: 190px; width: 110px; height: 110px; display: none; border:#e599bce8;}
+} 
 </style>
-</header>
+</header> 
 <body>
   <ul z-index="20" class="navBar">
     <li><a href="Geschirrspüler-Projekt.html">Geschirspüler-Liste</a></li>
