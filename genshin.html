@@ -69,16 +69,60 @@ img.rightElementsGenshin {
 img.yaemikoBanner {
 position: absolute;
 top: 600px;
-height: 630px; }
-div.laCouverture{
-    color:rgb(149, 189, 224);
-    height:300px;
-    width: 300px;
-    border-radius: 20%;
-    z-index: 200;
+height: 630px;}
+img.paimonPrimos{
+    height: 150px;
+    width: 150px;
+    z-index: 20;
     position: absolute;
-    top: 20px;
-    left: -300px}
+    top: 590px; 
+    left: 840px;} 
+div.laCouverture {
+    height:30px;
+    width: 210px;   
+    z-index: 20;
+    position: absolute;
+    top: 613px; 
+    left: 830px; 
+    background-color:rgb(152, 190, 228);
+    z-index: 17;
+    border-radius:40%; }
+img.primoCount {
+    height:200px;  
+    width: 400px; 
+    z-index: 20;
+    position: absolute;  
+    top:1070px;
+    left:160px;}
+img.whish {
+      height:70px;  
+    width: 70px; 
+    z-index: 20;
+    position: absolute;  
+    top:1147px; 
+    left:230px;}
+p.totalPrimos{
+    z-index: 20;
+    position: absolute;  
+    top:1130px;  
+    left:330px;  
+    color: #bcb871;
+    font-weight: bold;
+    font-size: 20px; }
+button.getMore {
+    font-size: 60px; 
+    color: #bcb871;
+    height:300px; 
+    width: 3000px;
+    z-index: 20;
+    position: relative;   
+    top:770px; 
+    left:-900px;  
+    background-image: url("images/primoCount.png");
+    background-position:  center center;
+    background-size: 900px 300px;   
+    background-repeat: no-repeat;
+    z-index: 17; }
 </style>
 </header>
 <body>
@@ -96,8 +140,12 @@ div.laCouverture{
 <button class="getPrimos">Get Primogems</button>
 <div>
 <img class="yaemikoBanner" src="images/yaeMikoBanner.jpg">
-<div class="primoCount">0</div>
+<img class="paimonPrimos" src="images/paimonPrimos.png"></img>
 <div class="laCouverture"></div>
+<div class="primoCount"><img src="images/primoCount.png" class="primoCount"><img src="images/interwined.webp" class="whish">
+<p class="totalPrimos">insgesammt:</p></div>
+<button class="getMore" href="statistic.html">Get more!<img src="images/paimonPrimoDance.gif" style="margin: 20px 0 0 50px;"></button>
+</div> 
 </body>
 <script src="script.js"></script>
 </html>

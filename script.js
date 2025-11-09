@@ -275,4 +275,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+//PrimoCount
+const primoText = document.querySelector('.totalPrimos');
+const getMoreButton = document.querySelector('.getMore')
+    
+primoText.innerHTML += "<br>0";
+
+if (getMoreButton) {
+
+    button.addEventListener('click', () => {
+        windows.location.href = statistic.html;
+    }
+    );
+}
+
+
 
