@@ -134,7 +134,7 @@ color: #e62689;}
   top: 20px;
   flex-direction: column; /* Ändert die Richtung auf vertikal */
   gap: 2px; /* Abstand zwischen Text und Icon */
-z-index: 20;
+z-index: 220;
 }
 .svgIcon {
   width: 15px;
