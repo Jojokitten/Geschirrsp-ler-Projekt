@@ -4,8 +4,67 @@
 <title>Geschirrspüler-Projekt</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="styles.css">
+
+<style class="volume">body{
+  background: #f9f9f9;
+}
+
+
+#volume-slider{
+  align-items: center;
+  display    : flex;
+  margin     : 3em auto;
+  padding    : 30px 0;
+  width      : 265px;
+}
+
+
+.volume-icon{
+  cursor          : pointer;
+  height          : 60px;
+  transform       : rotate(-0deg);
+  transform-origin: center left;
+  width           : 60px;
+
+  .volume-icon-bg{
+    fill      : #100100;
+    transition: fill 300ms;
+  }
+
+  &:hover .volume-icon-bg{
+    fill: #b6aebf;
+  }
+
+}
+
+
+#circle-mask-shape{
+  transform       : scale(0);
+  transform-origin: center center;
+}
+
+
+.volume-track{
+  background-color: #e1dee5;
+  border-radius   : 3px;
+  flex            : 1;
+  height          : 4px;
+  margin-left     : 5px;
+  position        : relative;
+}
+
+
+.volume-indicator{
+  background-color: #6eaa35;
+  border-radius   : 50%;
+  height          : 12px;
+  left            : 0;
+  position        : absolute;
+  top             : -4px;
+  transition      : visibility 100ms, opacity 100ms;
+  width           : 12px;
+}</style>
 <style class="Stopuhrrrr">
-/* Generelle Stile (Simulation von SafeAreaView und ScrollView) */
 body {
     margin: 0;
     padding: 0;
@@ -76,7 +135,8 @@ body {
     height: 60px;
     color: rgb(137, 1, 44);
     font-size: 16px;
-    font-weight: bold;}
+    font-weight: bold;
+    padding-bottom: -500px;}
 .control-button span {
     font-size: 30px; /* Für die Iconsymbole */}
 .reset-button span:first-child {
@@ -90,21 +150,17 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 50px;
-}
+    margin-bottom: -100px;}
 .saved-times-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;}
-
 .saved-times-title {
     font-size: 24px;
     font-weight: bold;
     color: rgb(137, 1, 44);
-    margin: 0;
-}
-
+    margin: 0;}
 .clear-button {
     padding: 8px 15px;
     background-color: rgba(255, 255, 255, 0.9);
@@ -240,18 +296,12 @@ left:5800px;
 }
 
 .loader svg {
-  position: absolute;
-}
-
+  position: absolute;}
 .loader svg #clipping {
   filter: contrast(15);
-  animation: roundness calc(var(--time-animation) / 2) linear infinite;
-}
-
+  animation: roundness calc(var(--time-animation) / 2) linear infinite;}
 .loader svg #clipping polygon {
-  filter: blur(7px);
-}
-
+  filter: blur(7px);}
 .loader svg #clipping polygon:nth-child(1) {
   transform-origin: 75% 25%;
   transform: rotate(90deg);
@@ -341,7 +391,6 @@ left:5800px;
 <script src="script.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // --- 1. DOM-Elemente und Konstanten ---
         const SAVED_TIMES_KEY = 'saved_times';
         
         const timerDisplay = document.getElementById('timerDisplay');
@@ -353,17 +402,14 @@ left:5800px;
         const savedTimesSection = document.querySelector('.saved-times-section');
         const totalTimeDisplay = document.getElementById('totalTimeDisplay');
         const flameAnimation = document.querySelector('.loader');
-        // --- 2. State-Variablen (ersetzen React's useState) ---
+        const savedTime = document.querySelector('.saved-times-section');
+
         let time = 0; // Zeit in Millisekunden
         let isRunning = false;
         let intervalId = null;
-        let savedTimes = []; // Array zur Speicherung der Zeiten
+        let savedTimes = []; 
+        savedTime.style.marginBottom = "-100px";
 
-        // --- 3. Hilfsfunktionen ---
-
-        /**
-         * Formatiert Millisekunden in HH:MM:SS (deine originale Logik)
-         */
         const formatTime = (milliseconds) => {
             const totalSeconds = Math.floor(milliseconds / 1000);
             const hours = Math.floor(totalSeconds / 3600);
@@ -372,29 +418,15 @@ left:5800px;
 
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         };
-
-        /**
-         * Berechnet die Gesamtsumme aller gespeicherten Zeiten.
-         */
         const calculateTotalTime = () => {
             const total = savedTimes.reduce((sum, item) => sum + item.time, 0);
-            return formatTime(total);
-        };
-
-        // --- 4. Render- und Update-Funktionen ---
-
-        /**
-         * Aktualisiert den Timer-Anzeigetext.
-         */
+            return formatTime(total); };
         const updateTimerDisplay = () => {
             timerDisplay.textContent = formatTime(time);
             saveButton.disabled = time === 0;
             updateStartButton(); // Aktualisiert Start/Pause-Button
         };
 
-        /**
-         * Erstellt und aktualisiert die Liste der gespeicherten Zeiten und die Gesamtsumme.
-         */
         const renderSavedTimes = () => {
             savedTimesList.innerHTML = ''; // Liste leeren
             
@@ -422,9 +454,6 @@ left:5800px;
             totalTimeDisplay.textContent = calculateTotalTime();
         };
 
-        /**
-         * Aktualisiert den Start/Pause-Button-Text und Stil.
-         */
         const updateStartButton = () => {
             if (!flameAnimation) return;
             if (isRunning) {
@@ -437,9 +466,6 @@ left:5800px;
                 flameAnimation.style.visibility = 'hidden';
             }
         };
-
-
-        // --- 5. LocalStorage Funktionen ---
 
         const saveTimes = () => {
             try {
@@ -511,8 +537,7 @@ left:5800px;
         const handleReset = () => {
             // Stoppen und zurücksetzen
             if (isRunning) {
-                handleStartPause(); // Pausiert
-            }
+                handleStartPause(); }
             time = 0;
             updateTimerDisplay();
         };
@@ -521,20 +546,203 @@ left:5800px;
             savedTimes = [];
             saveTimes();
             renderSavedTimes();
+            
+            savedTime.style.marginBottom = "-500px";
         };
 
-        // --- 7. Event Listener registrieren ---
-        
         startButton.addEventListener('click', handleStartPause);
         saveButton.addEventListener('click', handleSave);
         resetButton.addEventListener('click', handleReset);
         clearAllButton.addEventListener('click', handleClearAll);
 
-        // --- 8. Initialisierung ---
-        
         loadSavedTimes();
-        updateTimerDisplay(); // Setzt den initialen Text (00:00:00) und Button-State
+        updateTimerDisplay(); 
     });
+</script>
+<script class="volume"> 
+document.addEventListener("DOMContentLoaded", () => {
+class VolumeSlider {
+
+  constructor() {
+    this.slider = document.getElementById('volume-slider');
+    this.icon = document.getElementById('volume-icon');
+    this.indicator = document.getElementById('volume-indicator');
+    this.shape = document.getElementById('circle-mask-shape');
+    this.input = document.getElementById('volume-input');
+
+    this._lock = false;
+    this._charging = false;
+    this._charge = 0;
+    this._volume = 0;
+
+    this.input.value = this._volume;
+
+    this.icon.addEventListener('mousedown', () => {this.charge();});
+    this.icon.addEventListener('mouseup', () => {this.release(this._charge);});
+    this.icon.addEventListener('touchstart', () => {this.charge();});
+    this.icon.addEventListener('touchend', () => {this.release(this._charge);});
+  }
+
+
+  /**
+   * Begin charge cycle
+   */
+  charge() {
+    if (this._lock) {return false;}
+    this._lock = true;
+
+    // Reset
+    this._charge = 0;
+    this._charging = true;
+
+    // Hide indicator
+    //this.indicator.style.visibility = 'hidden';
+    // this.indicator.style.opacity    = '0';
+
+    /**
+     * Charge loop
+     */
+    let cycle = () => {
+      if (this._charging && ++this._charge < 100) {
+        requestAnimationFrame(() => {
+          cycle();
+        });
+      }
+
+      // Update icon styles
+      this.shape.style.transform = `scale(${this._charge / 100})`;
+      this.icon.style.transform = `rotate(${-0.35 * this._charge}deg)`;
+    };
+
+    setTimeout(() => cycle(), 100);
+  }
+
+
+  /**
+   * Release and fire based on charge
+   * @param  {float} charge
+   */
+  release(charge) {
+    // Reset charge animation
+    this._charging = false;
+    requestAnimationFrame(() => {this.shape.style.transform = `scale(0)`;});
+
+    // Animation vars
+    let y_cap = charge * 0.35,
+    y_start = -0.3 * charge,
+    x_cap = charge * 2,
+    x_start = -10,
+    duration = 20 + 4 * charge,
+    start = new Date().getTime(),
+    volume = this._volume,
+    rotate;
+
+    // Y animation
+    let y_swap = duration * 0.55;
+
+    let y_duration_up = y_swap,
+    y_duration_down = duration - y_swap;
+
+    let y = y_start,
+    y_diff_up = -y_cap,
+    y_diff_down = y_cap - y_start;
+
+    // X animation
+    let x = x_cap,
+    x_diff = x_cap - 10;
+
+    // Display indicator
+    this.indicator.style.visibility = 'visible';
+    this.indicator.style.opacity = '1';
+
+    /**
+     * Animation loop
+     */
+    let animate = () => {
+      let elapsed = new Date().getTime() - start;
+
+      if (elapsed < duration) {
+        // Animate
+        requestAnimationFrame(() => {animate();});
+
+        if (elapsed < y_duration_up) {
+          // Y up
+          y = this.easeOut(elapsed, y_start, y_diff_up, y_duration_up);
+        } else {
+          // Y down
+          y = this.easeIn(elapsed - y_duration_up, y_start - y_cap, y_diff_down, y_duration_down);
+        }
+
+        // Set values
+        x = this.linearTween(elapsed, 0, x_diff, duration);
+        rotate = this.easeInOut(elapsed, -1.5 * this._charge, 1.5 * this._charge, duration);
+        this._volume = this.easeOut(elapsed, volume, charge - volume, duration);
+      } else {
+        // End of animation
+        this._lock = false;
+
+        // Set values
+        x = x_cap;
+        y = 0;
+        rotate = 0;
+        this._volume = charge;
+      }
+
+      // Render values
+      this.icon.style.transform = `rotate(${rotate}deg)`;
+      this.indicator.style.transform = `translateX(${x}px) translateY(${y}px)`;
+      this.input.value = this._volume;
+    };
+
+    animate();
+  }
+
+
+  /**
+   * Linear progression
+   */
+  linearTween(t, b, c, d) {
+    return c * t / d + b;
+  }
+
+
+  /**
+   * Cubic ease-in progression
+   */
+  easeIn(t, b, c, d) {
+    t /= d;
+    return c * t * t * t + b;
+  }
+
+
+  /**
+   * Cubic ease-out progression
+   */
+  easeOut(t, b, c, d) {
+    t /= d;
+    t--;
+    return c * (t * t * t + 1) + b;
+  }
+
+
+  /**
+   * Cubic ease-in-out progression
+   */
+  easeInOut(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) {
+      return c / 2 * t * t * t + b;
+    }
+    t -= 2;
+    return c / 2 * (t * t * t + 2) + b;
+  }}
+
+
+
+
+
+new VolumeSlider();
+});
 </script>
 
 <body>
@@ -544,6 +752,7 @@ left:5800px;
     <li><a href="statistic.html">Statistik</a></li>
     <li><a href="motivation.html">Motivation</a></li>
         <li><a href="geschirrspühl-tagebuch.html">Geschirrspühl-Tagebuch</a></li>
+        <li><a href="genshin.html">Genshin ✨</a></li>
      <li><a href="profile.html">Profile</a></li>
   </ul>
 <button onclick="window.location.href='GeschirrspühlSession.html'" class="startGeschirrspühlsession"> +&nbsp;&nbsp;&nbsp;&nbsp;Start Geschirrspühl-Session</button>
@@ -614,7 +823,6 @@ left:5800px;
         
         <div id="songTitle" class="song-title">Song wird geladen...</div>
 
-        <audio id="audioPlayer" src="" preload="auto"></audio>
         <video id="videoPlayer" scr="" preload="auto"></video>
 
         <div class="controls">
@@ -622,11 +830,38 @@ left:5800px;
             <button id="playPauseBtn" class="control-btn">▶</button>
             <button id="nextBtn" class="control-btn">⏭</button>
             </div>
+        <img class="2FurinaGif" src="FurinaPlaylistGif2.gif"></img>
         <div class="tenor-gif-embed" data-postid="15426465366261901887" data-share-method="host" data-aspect-ratio="1"></div> 
     <script type="text/javascript" src="https://tenor.com/embed.js"></script>
     </div>
 
-   
+<div id="volume-slider">
+  <svg id="volume-icon" class="volume-icon" viewBox="-1 0 33 32">
+    <defs>
+      <mask id="circle-mask" x="-1" y="0" width="33" height="32">
+        <circle cx="-1" cy="16" r="33" fill="white" id="circle-mask-shape" />
+      </mask>
+
+      <mask id="volume-mask" x="-1" y="0" width="33" height="32">
+        <path d="M22.485 25.985c-0.384 0-0.768-0.146-1.061-0.439-0.586-0.586-0.586-1.535 0-2.121 4.094-4.094 4.094-10.755 0-14.849-0.586-0.586-0.586-1.536 0-2.121s1.536-0.586 2.121 0c2.55 2.55 3.954 5.94 3.954 9.546s-1.404 6.996-3.954 9.546c-0.293 0.293-0.677 0.439-1.061 0.439v0zM17.157 23.157c-0.384 0-0.768-0.146-1.061-0.439-0.586-0.586-0.586-1.535 0-2.121 2.534-2.534 2.534-6.658 0-9.192-0.586-0.586-0.586-1.536 0-2.121s1.535-0.586 2.121 0c3.704 3.704 3.704 9.731 0 13.435-0.293 0.293-0.677 0.439-1.061 0.439zM13 30c-0.26 0-0.516-0.102-0.707-0.293l-7.707-7.707h-3.586c-0.552 0-1-0.448-1-1v-10c0-0.552 0.448-1 1-1h3.586l7.707-7.707c0.286-0.286 0.716-0.372 1.090-0.217s0.617 0.519 0.617 0.924v26c0 0.404-0.244 0.769-0.617 0.924-0.124 0.051-0.254 0.076-0.383 0.076z" fill="white" mask="url(#circle-mask)"></path>
+      </mask>
+
+      <linearGradient id="grad-1" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="20%" stop-color="#9a88aa" />
+        <stop offset="100%" stop-color="#6e33a5" />
+      </linearGradient>
+    </defs>
+
+    <path class="volume-icon-bg" fill="#cbc8ce" d="M22.485 25.985c-0.384 0-0.768-0.146-1.061-0.439-0.586-0.586-0.586-1.535 0-2.121 4.094-4.094 4.094-10.755 0-14.849-0.586-0.586-0.586-1.536 0-2.121s1.536-0.586 2.121 0c2.55 2.55 3.954 5.94 3.954 9.546s-1.404 6.996-3.954 9.546c-0.293 0.293-0.677 0.439-1.061 0.439v0zM17.157 23.157c-0.384 0-0.768-0.146-1.061-0.439-0.586-0.586-0.586-1.535 0-2.121 2.534-2.534 2.534-6.658 0-9.192-0.586-0.586-0.586-1.536 0-2.121s1.535-0.586 2.121 0c3.704 3.704 3.704 9.731 0 13.435-0.293 0.293-0.677 0.439-1.061 0.439zM13 30c-0.26 0-0.516-0.102-0.707-0.293l-7.707-7.707h-3.586c-0.552 0-1-0.448-1-1v-10c0-0.552 0.448-1 1-1h3.586l7.707-7.707c0.286-0.286 0.716-0.372 1.090-0.217s0.617 0.519 0.617 0.924v26c0 0.404-0.244 0.769-0.617 0.924-0.124 0.051-0.254 0.076-0.383 0.076z"></path>
+
+    <rect x="-1" y="0" width="33" height="32" mask="url(#volume-mask)" fill="url(#grad-1)" />
+  </svg>
+
+  <div class="volume-track">
+    <span id="volume-indicator" class="volume-indicator"></span>
+    <input type="hidden" name="volume" id="volume-input" />
+  </div>
+</div>
 </body>
 
 </html>

@@ -63,8 +63,6 @@
 
 const clicks = JSON.parse(localStorage.getItem("clicks") || "{}");
 const stickerCounts = JSON.parse(localStorage.getItem("stickerCounts") || "{}");
-
-// Listen for clicks on sticker buttons and other interactive elements.
 document.addEventListener('click', function(event) {
     const clickedSticker = event.target.closest('.tagebuch-sticker');
     if (clickedSticker) {
@@ -109,8 +107,6 @@ document.addEventListener('click', function(event) {
         return;
     }
 });
-
-// Handle file input changes via delegation
 document.addEventListener('change', function(event) {
     if (event.target && event.target.id === 'file') {
         const fileInput = event.target;
@@ -131,16 +127,16 @@ document.addEventListener('change', function(event) {
 
 
 
+
+
 //PLAYLIST
 document.addEventListener('DOMContentLoaded', () => {
      const playlist = [
          { index: 0, title: "Tolles Lied 1", src: "playlist/kafka.mp4" },
-        { title: "Ganz Tolles Billie Eilish Lied", src: "playlist/ilomio.mp3" },
-        { title: "Kaffee", src: "playlist/Sabrina Carpenter - Espresso.mp3" } 
+        { title: "Ganz Tolles Billie Eilish Lied", src: "playlist/ilomilo.mp4" },
+        { title: "Kaffee", src: "playlist/Espresso.mp4" } 
     ];
    
-    // --- 1. DOM Elemente abrufen ---
-    const audioPlayer = document.getElementById('audioPlayer');
     const videoPlayer = document.getElementById('videoPlayer');
     const songTitleDisplay = document.getElementById('songTitle');
     const playPauseBtn = document.getElementById('playPauseBtn');
@@ -149,42 +145,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
+    const FurinaPlaylistGif2 = document.querySelector('.2FurinaGif');
     const furinaPlaylistGif = document.querySelector('.tenor-gif-embed');
    
     let currentSongIndex = 0;
-    let isPlaying = false; // Startzustand: Pausiert
-    let currentMediaElement = null;
-
+    FurinaPlaylistGif2
 
     const updateGifVisibility = (isCurrentlyPlaying) => {
         if (!furinaPlaylistGif) return;
 
-        const isEspresso = currentSongIndex === 2; // Index 2 ist "Kaffee"
+        const isEspresso = currentSongIndex === 2; 
+        const isFurina = currentSongIndex === 4;
 
         if (isEspresso && isCurrentlyPlaying) {
             furinaPlaylistGif.style.visibility = 'visible';
+            videoPlayer.style.opacity = "0.1";
         } else {
             furinaPlaylistGif.style.visibility = 'hidden';
+            videoPlayer.style.opacity = "0.5";
         }
+        if (isFurina && isCurrentlyPlaying) {
+            FurinaPlaylistGif2.style.visibility = 'visible';
+        }
+
     };
 
+    const showVideo = (isCurrentlyPlaying) => {
+        if (!videoPlayer) return;
+
+        if ( isCurrentlyPlaying) {
+            videoPlayer.style.visibility = 'visible';
+        } else {
+            videoPlayer.style.visibility = 'hidden';
+        }
+    }
 
 
     const loadSong = (index) => {
         const song = playlist[index];
+        videoPlayer.src = song.src;
         songTitleDisplay.textContent = song.title;
 
-        if (song.type === 'video') {
-            videoPlayer.src = song.src;
-            // hier vill display von video ändern!!!
-            currentMediaElement = videoPlayer;
-        }
-        else {
-            audioPlayer.src = song.src;
-            currentMediaElement = audioPlayer;
-        }
-        currentMediaElement = load;
+        videoPlayer.load();
         updateGifVisibility(isPlaying);
     };
 
@@ -194,14 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const togglePlayPause = () => {
         if (isPlaying) {
-            currentMediaElement.pause();
+            videoPlayer.pause();
             playPauseBtn.textContent = '▶';
             isPlaying = false; // 1. Zustand ändern
-            updateGifVisibility(isPlaying); // 2. GIF aktualisieren
+            updateGifVisibility(isPlaying); 
+            showVideo(isPlaying);
         } else {
             // FIX: Verwende promise, um Playback-Fehler zu vermeiden
-            const playPromise = audioPlayer.play();
-
+            const playPromise = videoPlayer.play();
+            
 
 
 
@@ -211,12 +214,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     playPauseBtn.textContent = '⏸';
                     isPlaying = true; // 1. Zustand ändern
                     updateGifVisibility(isPlaying); // 2. GIF aktualisieren
+                    showVideo(isPlaying);
                 }).catch(error => {
                     // Autoplay blockiert oder anderer Fehler
                     console.error("Autoplay wurde blockiert oder die Wiedergabe ist fehlgeschlagen:", error);
                     playPauseBtn.textContent = '▶';
                     isPlaying = false;
                     updateGifVisibility(isPlaying);
+                    showVideo(isPlaying);
                 });
             }
         }
@@ -230,9 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSong(currentSongIndex);
        
         if (isPlaying) {
-            currentMediaElement.play();
+            videoPlayer.play();
         }
         updateGifVisibility(isPlaying);
+        showVideo(isPlaying);
     };
    
     const playPreviousSong = () => {
@@ -240,20 +246,20 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSong(currentSongIndex);
        
         if (isPlaying) {
-            currentMediaElement.play();
+            videoPlayer.play();
         }
         updateGifVisibility(isPlaying);
+        showVideo(isPlaying);
     };
 
 
 
 
-    // --- Event Listener ---
-   
+
     if (playPauseBtn) playPauseBtn.addEventListener('click', togglePlayPause);
     if (nextBtn) nextBtn.addEventListener('click', playNextSong);
     if (prevBtn) prevBtn.addEventListener('click', playPreviousSong);
-    currentMediaElement.addEventListener('ended', playNextSong);
+    videoPlayer.addEventListener('ended', () => navigateSong('next'));
 
 
 
@@ -261,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialen Song laden und GIF verstecken
     loadSong(currentSongIndex);
     updateGifVisibility(false);
+    showVideo(isPlaying);
 
 
 });

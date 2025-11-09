@@ -3,6 +3,7 @@
 <meta charset="UTF-8">
 <title>Geschirrspüler-Projekt</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<head>
 <link rel="stylesheet" href="styles.css">
 <style>
   h2{
@@ -61,6 +62,43 @@ width: 260px;}
 .statisticJohannaChart{
    display: none;}
 </style>
+</head>
+
+<body>
+  <img src="img_la.jpg" alt="LA" style="width:100%">
+  <div class="headings">
+    <h1>Statistik</h1>
+  </div>
+  <ul class="navBar">
+    <li><a href="Geschirrspüler-Projekt.html">Geschirspüler-Liste</a></li>
+    <li><a href="statistic.html">Statistik</a></li>
+    <li><a href="motivation.html">Motivation</a></li>
+        <li><a href="geschirrspühl-tagebuch.html">Geschirrspühl-Tagebuch</a></li>
+        <li><a href="genshin.html">Genshin ✨</a></li>
+     <li><a href="profile.html">Profile</a></li>
+  </ul>
+<button class="delete" onclick="window.location.href='whyDidUDelete.html'">
+  <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+</button>
+
+<button class="statisticLena">Statistik Lena</button>
+<div class="statisticChartLena">
+  
+  <h2>Von Lena am häufigsten genutzer Sticker:${mostSelectedMood} Du hast diesen Sticker ${maxCount} - mal ausgewählt!</h2>
+ 
+    <div id="mostUsedStickerDisplay">
+        <p>Lade Sticker...</p>
+    </div>
+</div>
+
+<button class="statisticJohanna">Statistik Johanna</button>
+<div class="statisticChartJohanna">
+
+<h2>Von Johanna am häufigsten genutzer Sticker:${mostSelectedMood} Du hast diesen Sticker ${maxCount} - mal ausgewählt!</h2>
+    
+</div>
+</body>
+
 <script src="script.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -75,14 +113,15 @@ width: 260px;}
     statisticJohannaButton.addEventListener('click', () => {
     statisticLenaChart.style.display = 'none';
     statisticJohannaChart.style.display = 'block';});
+
     statisticLenaButton.addEventListener('click', () => {
     statisticJohannaChart.style.display = 'none';
     statisticLenaChart.style.display = 'block';});
-        });
+      
 
 
 
-    document.addEventListener('DOMContentLoaded', () => {
+
         const stickerCountsKey = 'stickerCounts';
         const displayElement = document.getElementById('mostUsedStickerDisplay');
         
@@ -107,47 +146,13 @@ width: 260px;}
 
         // 3. Ergebnis im HTML anzeigen
         if (maxCount > 0) {
-            let mostSelectedMood = mood.display; //??????
-            maxCount = ;
+            let mostSelectedMood = mood.display;
+            maxCount();
                 ;
         } else {
             mostSelectedMood = "Noch keine Sticker-Daten vorhanden.";
         }
-    });
+      });
 </script>
-
-<body>
-  <img src="img_la.jpg" alt="LA" style="width:100%">
-  <div class="headings">
-    <h1>Statistik</h1>
-  </div>
-  <ul>
-    <li><a href="Geschirrspüler-Projekt.html">Geschirspüler-Liste</a></li>
-    <li><a href="statistic.html">Statistik</a></li>
-    <li><a href="motivation.html">Motivation</a></li>
-        <li><a href="geschirrspühl-tagebuch.html">Geschirrspühl-Tagebuch</a></li>
-    <li><a href="profile.html">Profile</a></li>
-  </ul>
-<button class="delete" onclick="window.location.href='whyDidUDelete.html'">
-  <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
-</button>
-
-<button class="statisticLena">Statistik Lena</button>
-<div class="statisticChartLena">
-  
-  <h2>Von Johanna am häufigsten genutzer Sticker:${mostSelectedMood} Du hast diesen Sticker ${maxCount} - mal ausgewählt!</h2>
- 
-    <div id="mostUsedStickerDisplay">
-        <p>Lade Sticker...</p>
-    </div>
-</div>
-
-<button class="statisticJohanna">Statistik Johanna</button>
-<div class="statisticChartJohanna">
-
-<h2>Von Johanna am häufigsten genutzer Sticker:${mostSelectedMood} Du hast diesen Sticker ${maxCount} - mal ausgewählt!</h2>
-    
-</div>
-</body>
 
 </html>

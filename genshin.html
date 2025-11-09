@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<header>
+<link rel="stylesheet" href="styles.css">
+<style>
+body {
+  background: url("images/wallpaperGenshin.jpg") no-repeat center top;
+  background-size: 1000px;
+  background-position: 650px 50px;}
+img.leftElementsGenshin {
+  position: fixed;
+  left: 0;
+  top: -180px; 
+  height: 700px;
+  z-index: -2;
+  margin-top: 100px;}
+img.rightElementsGenshin {
+  position: fixed;
+  right: 0;
+  top: -180px;
+  height: 700px;
+  z-index: -2;
+  margin-top: 100px;}
+
+.cursor {
+  position: relative;
+  top: 200px;
+  left: 700px;
+  width: 10em;
+  border-right: 9px solid rgba(148, 27, 102, 0.468);
+  font-size: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);
+  z-index: 100;
+  color: #b00b76;
+  animation: glow 1s ease-in-out infinite alternate, blinkingCursor 0.7s step-end infinite;}
+.typewriter-animation {
+  animation: 
+    typewriter 6s steps(50) 1s 1 normal both, 
+    blinkingCursor 0.7s step-end infinite,
+    glow 1s ease-in-out infinite alternate;}
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }}
+@keyframes glow {
+  from {
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #ff4da6,
+      0 0 20px #ff4da6,
+      0 0 30px #ff4da6;
+  }
+  to {
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px #ff1a8c,
+      0 0 30px #ff1a8c,
+      0 0 40px #ff1a8c;}}
+@keyframes blinkingCursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: rgba(148, 27, 102, 0.8); }}
+img.yaemikoBanner {
+position: relative;
+top: 1000px;
+height: 1000px;
+}
+</style>
+</header>
+<body>
+  <ul z-index="20" class="navBar">
+    <li><a href="Geschirrspüler-Projekt.html">Geschirspüler-Liste</a></li>
+    <li><a href="statistic.html">Statistik</a></li>
+    <li><a href="motivation.html">Motivation</a></li>
+        <li><a href="geschirrspühl-tagebuch.html">Geschirrspühl-Tagebuch</a></li>
+        <li><a href="genshin.html">Genshin ✨</a></li>
+     <li><a href="profile.html">Profile</a></li>
+  </ul>
+<img class="leftElementsGenshin" src="images/elementsGenshin.png">
+<img class="rightElementsGenshin" src="images/elementsGenshin.png">
+<p font-size="200px" class="cursor typewriter-animation">Whishing Banner <img src="images/genshinWhish.webp" style="border-radius:50%; border:3px, solid, rgb(245, 142, 189); width:200px;"></p>
+<button class="getPrimos">Get Primogems</button>
+<div>
+<img class="yaemikoBanner" src="images/yaeMikoBanner.png">
+
+</div>
+</body>
+<script src="script.js"></script>
+</html>
