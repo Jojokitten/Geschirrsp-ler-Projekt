@@ -5,28 +5,33 @@
 <link rel="stylesheet" href="styles.css">
 <style>
 body {
-  background: url("images/wallpaperGenshin.jpg") no-repeat center top;
-  background-size: 1000px;
-  background-position: 650px 50px;}
+background-image: url("images/wallpaperGenshin.jpg");
+background-size: 1000px;
+background-position:  center 50px; 
+background-repeat: no-repeat;
+background-attachment: fixed;
+overflow-y: scroll; }
 img.leftElementsGenshin {
   position: fixed;
   left: 0;
   top: -180px; 
   height: 700px;
-  z-index: -2;
+  z-index: 2;
   margin-top: 100px;}
 img.rightElementsGenshin {
   position: fixed;
   right: 0;
   top: -180px;
   height: 700px;
-  z-index: -2;
+  z-index: 2;
   margin-top: 100px;}
-
 .cursor {
   position: relative;
   top: 200px;
-  left: 700px;
+  position: relative; 
+  top: 300px;
+  left: 16%; 
+  transform: translate(-50%, -50%); 
   width: 10em;
   border-right: 9px solid rgba(148, 27, 102, 0.468);
   font-size: 100px;
@@ -34,7 +39,7 @@ img.rightElementsGenshin {
   overflow: hidden;
   transform: translateY(-50%);
   z-index: 100;
-  color: #b00b76;
+  color: #f0e8ed;
   animation: glow 1s ease-in-out infinite alternate, blinkingCursor 0.7s step-end infinite;}
 .typewriter-animation {
   animation: 
@@ -62,10 +67,18 @@ img.rightElementsGenshin {
   0%, 100% { border-color: transparent; }
   50% { border-color: rgba(148, 27, 102, 0.8); }}
 img.yaemikoBanner {
-position: relative;
-top: 1000px;
-height: 1000px;
-}
+position: absolute;
+top: 600px;
+height: 630px; }
+div.laCouverture{
+    color:rgb(149, 189, 224);
+    height:300px;
+    width: 300px;
+    border-radius: 20%;
+    z-index: 200;
+    position: absolute;
+    top: 20px;
+    left: -300px}
 </style>
 </header>
 <body>
@@ -82,9 +95,9 @@ height: 1000px;
 <p font-size="200px" class="cursor typewriter-animation">Whishing Banner <img src="images/genshinWhish.webp" style="border-radius:50%; border:3px, solid, rgb(245, 142, 189); width:200px;"></p>
 <button class="getPrimos">Get Primogems</button>
 <div>
-<img class="yaemikoBanner" src="images/yaeMikoBanner.png">
-
-</div>
+<img class="yaemikoBanner" src="images/yaeMikoBanner.jpg">
+<div class="primoCount">0</div>
+<div class="laCouverture"></div>
 </body>
 <script src="script.js"></script>
 </html>

@@ -50,18 +50,17 @@ p.Delete2NaviaFont{
     font-size: 25px;
     margin: 20px 0 20px 0;
     font-family: 'Comic Sans MS', cursive, sans-serif;}
-
 ul {
+  z-index: 20;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: rgb(208, 136, 159);;
   display: flex;
     border: 1px solid rgb(137, 1, 44);
       position: fixed;
   top: 0;
   width: 100%;
-background: linear-gradient(rgb(255, 182, 193), rgb(255, 105, 180));}
+background: linear-gradient(rgb(243, 120, 208), rgb(241, 186, 222), rgb(219, 77, 172));}
 ul li a {
   display: block;
   color: rgb(137, 1, 44);;
