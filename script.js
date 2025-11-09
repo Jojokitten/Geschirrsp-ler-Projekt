@@ -440,7 +440,7 @@ if (tenPull) {
       console.log('10-Pull Ergebnis:', result.resultHistory);
     } else {
       primoText.style.color = "red";
-      setTimeout(() => primoText.style.color = "", 1000);
+      setTimeout(() => primoText.style.color = "", 1200);
     }
   });
 }

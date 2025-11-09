@@ -26,8 +26,6 @@ img.rightElementsGenshin {
   z-index: 2;
   margin-top: 100px;}
 .cursor {
-  position: relative;
-  top: 200px;
   position: relative; 
   top: 300px;
   left: 16%; 
@@ -66,28 +64,21 @@ img.rightElementsGenshin {
 @keyframes blinkingCursor {
   0%, 100% { border-color: transparent; }
   50% { border-color: rgba(148, 27, 102, 0.8); }}
-img.yaemikoBanner {
+
+  /*yae*/
+  img.yaemikoBanner {
 position: absolute;
 top: 600px;
 height: 630px;
-border: 20px solid #f84f9e;}
+border-top: 20px solid #f84f9e;
+left: 150px;} 
 img.paimonPrimos{
-    height: 150px;
-    width: 150px;
+    height: 200px;
+    width: auto;
     z-index: 20;
     position: absolute;
-    top: 600px; 
+    top: 500px;  
     left: 840px;} 
-div.laCouverture {
-    height:30px;
-    width: 210px;   
-    z-index: 20;
-    position: absolute;
-    top: 632px;   
-    left: 850px; 
-    background-color:rgb(152, 190, 228);
-    z-index: 17;
-    border-radius:40%; }
 img.primoCount {
     height:200px;  
     width: 400px; 
@@ -126,22 +117,124 @@ button.getMore {
     z-index: 17; }
 button.tenPulls {
 position: absolute;
-    top:900px; 
-    left:820px;  
-}
+    top: 1150px;    
+    left: 820px;  
+    width: 230px;
+    height: 60px; 
+background-image: url('images/zehnWhishLeiste.png');
+background-size: cover; }
+button.onePull {
+position: absolute;
+    top: 1150px;    
+    left: 600px;    
+    width: 230px;
+    height: 60px; 
+background-image: url('images/einsWhishLeiste.png');
+background-size: cover; }
 button.firstFreePulls {
 position: absolute; 
-    top:900px; 
-    left: 550px; 
+    top: 880px;    
+    left: 690px; 
     height: 60px;
     width: 60px;     
     background-image: url('images/interwined.webp');
-    background-size: cover;
-}
+    background-size: cover;}
 @keyframes freePullDrop{
-    from{top: 900px; left: 550px; width: 60px; height: 60px; display: block;}
-    to{top: 1140px; left: 190px; width: 110px; height: 110px; display: none; border:#e599bce8;}
-} 
+    from{top: 880px; left: 690px; width: 60px; height: 60px; display: block;}
+    to{top: 1140px; left: 190px; width: 110px; height: 110px; display: none; border:#e599bce8;}}
+
+/*tartaglia*/
+.cursorTartaglia {
+  position: relative;
+  top: 1100px;   
+  left: 16%; 
+  transform: translate(-50%, -50%); 
+  width: 10em;
+  border-right: 9px solid rgba(148, 27, 102, 0.468);
+  font-size: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);
+  z-index: 100;
+  color: #f0e8ed;
+  animation: glow 1s ease-in-out infinite alternate, blinkingCursor 0.7s step-end infinite;}
+img.tartagliaBanner {
+position: absolute;
+top: 2000px;   
+height: 630px;
+border-top: 20px solid #f84f9e;
+left: 150px;} 
+img.secondPaimonPrimos{
+    height: 200px;
+    width: auto;
+    z-index: 20;
+    position: absolute;
+    top: 1880px;       
+    left: 840px;} 
+img.primoCount {
+    height:200px;  
+    width: 400px; 
+    z-index: 20;
+    position: absolute;  
+    top:1090px;  
+    left:160px;}
+img.whish {
+    height:70px;  
+    width: 70px; 
+    z-index: 20;
+    position: absolute;  
+    top:1163px;  
+    left:230px;}
+p.totalPrimos{
+    z-index: 20;
+    position: absolute;  
+    top:1160px;   
+    left:330px;  
+    color: #bcb871;
+    font-weight: bold;
+    font-size: 20px; }
+button.secondGetMore {
+    font-size: 60px; 
+    color: #bcb871;
+    height:150px; 
+    width: 3000px;
+    z-index: 20;
+    position: relative;   
+    top:1800px;     
+    left:-900px;  
+    background-image: url("images/primoCount.png");
+    background-position:  center center;
+    background-size: 900px 300px;   
+    background-repeat: no-repeat;
+    z-index: 17; }
+button.tenPulls {
+position: absolute;
+    top: 1150px;    
+    left: 820px;  
+    width: 230px;
+    height: 60px; 
+background-image: url('images/zehnWhishLeiste.png');
+background-size: cover; }
+button.onePull {
+position: absolute;
+    top: 1150px;    
+    left: 600px;    
+    width: 230px;
+    height: 60px; 
+background-image: url('images/einsWhishLeiste.png');
+background-size: cover; }
+button.firstFreePulls {
+position: absolute; 
+    top: 880px;    
+    left: 690px; 
+    height: 60px;
+    width: 60px;     
+    background-image: url('images/interwined.webp');
+    background-size: cover;}
+@keyframes freePullDrop{
+    from{top: 880px; left: 690px; width: 60px; height: 60px; display: block;}
+    to{top: 1140px; left: 190px; width: 110px; height: 110px; display: none; border:#e599bce8;}}
+
 </style>
 </header> 
 <body>
@@ -157,16 +250,27 @@ position: absolute;
 <img class="rightElementsGenshin" src="images/elementsGenshin.png">
 <p font-size="200px" class="cursor typewriter-animation">Whishing Banner <img src="images/genshinWhish.webp" style="border-radius:50%; border:3px, solid, rgb(245, 142, 189); width:200px;"></p>
 <button class="getPrimos">Get Primogems</button>
-<div>
-<img class="yaemikoBanner" src="images/yaeMikoBanner.jpg">
+<div class="yaeeee">
+<img class="yaemikoBanner" src="images/yaeMikoBanner.png">
 <img class="paimonPrimos" src="images/paimonPrimos.png"></img>
-<div class="laCouverture"></div>
 <div class="primoCount"><img src="images/primoCount.png" class="primoCount"><img src="images/interwined.webp" class="whish">
 <p class="totalPrimos">insgesammt:</p></div>
 <button class="getMore" href="statistic.html">Get more!<img src="images/paimonPrimoDance.gif" style="margin: 20px 0 0 50px;"></button>
 <button class="tenPulls"></button>
 <button class="firstFreePulls"></button>
+<button class="onePull"></button>
 </div> 
+<div class="tartagliaaaa">
+<p font-size="200px" class="cursorTartaglia typewriter-animation">Banner 2: Tortelini<img src="images/genshinWhish.webp" style="border-radius:50%; border:3px, solid, rgb(245, 142, 189); width:200px;"></p>
+<img class="tartagliaBanner" src="images/tartagliaBanner.png">
+<img class="secondPaimonPrimos" src="images/paimonPrimos.png"></img>
+<div class="primoCount"><img src="images/primoCount.png" class="primoCount"><img src="images/interwined.webp" class="whish">
+<p class="totalPrimos">insgesammt:</p></div>
+<button class="secondGetMore" href="statistic.html">Get more!<img src="images/paimonPrimoDance.gif" style="margin: 20px 0 0 50px;"></button>
+<button class="tenPulls"></button>
+<button class="secondFreePulls"></button>
+<button class="onePull"></button>
+</div>
 </body>
 <script src="script.js"></script>
 </html>
