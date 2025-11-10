@@ -280,6 +280,8 @@ const primoText = document.querySelector('.totalPrimos');
 const getMoreButton = document.querySelector('.getMore');
 const firstFreePullButton = document.querySelector('.firstFreePulls');
 const tenPull = document.querySelector('.tenPulls');
+const secondFreePullButton = document.querySelector('.secondFreePulls');
+const primoNotification = document.querySelector('.primoNotification');
 
 let primoCount = 0;
 let pity = 0;
@@ -305,6 +307,16 @@ if (firstFreePullButton) {
     primoText.innerHTML = `insgesamt:<br>${primoCount}`;
   });
 }
+if (secondFreePullButton) {
+  secondFreePullButton.addEventListener('click', () => {
+    secondFreePullButton.style.animation = 'none';
+    // Reflow erzwingen, damit Animation neu startet
+    void secondFreePullButton.offsetWidth;
+    secondFreePullButton.style.animation = 'freePullDrop 2s forwards';
+    primoCount += 10;
+    primoText.innerHTML = `insgesamt:<br>${primoCount}`;
+});}
+
 
 // Genshin Simulation
 const BANNER_CHARACTER = 'character';
@@ -444,11 +456,12 @@ if (tenPull) {
     }
   });
 }
+function primoNotification {
+    primoNotification.style.display = "block";
+    if ('click', => (   primoNotification.style.display = "none";))}
 
 
 // LOCAL STORAGE!!!! :)
-
-
 let pulls = parseInt(localStorage.getItem('pullCount')) || 0;
 let freePullUsed = localStorage.getItem('freePullUsed') === 'true';
 
@@ -458,10 +471,22 @@ if (firstFreePullButton && !freePullUsed) {
     firstFreePullButton.style.animation = 'freePullDrop 2s forwards';
     primoCount += 10;
     pulls += 1;
+    primoNotification();
     localStorage.setItem('pullCount', pulls);
     localStorage.setItem('freePullUsed', 'true');
   });
 } else if (firstFreePullButton && freePullUsed) {
   firstFreePullButton.style.display = 'none';
 }
+if (secondFreePullButton ) {
+  secondFreePullButton.addEventListener('click', () => {
+    secondFreePullButton.style.animation = 'secondFreePullDrop 2s forwards';
+    primoCount += 10;
+    pulls += 1;
+    primoNotification();
+    localStorage.setItem('pullCount', pulls);
+    localStorage.setItem('freePullUsed', 'true');
+  });
+} else if (secondFreePullButton && freePullUsed) {
+  secondFreePullButton.style.display = 'none';}
 
